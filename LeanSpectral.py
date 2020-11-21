@@ -1,7 +1,6 @@
 """
 Implementing a lean version of the Spectral Layer.
 Based on work by: Duccio Fanelli, Lorenzo Buffoni and Lorenzo Giambagli.
-
 reference: https://arxiv.org/abs/2005.14436
 @author: Marco Ciavarella
 """
@@ -62,6 +61,7 @@ class LeanSpectral(Layer):
     def build(self, input_shape):
 
         # trainable eigenvector elements matrix
+        # phi_ij
         self.base = self.add_weight(
             name='base',
             shape=(input_shape[-1], self.units),
@@ -73,6 +73,7 @@ class LeanSpectral(Layer):
         )
 
         # trainable eigenvalues
+        # \lambda_i
         self.diag = self.add_weight(
             name='diag',
             shape=(self.units, ),
@@ -100,10 +101,12 @@ class LeanSpectral(Layer):
 
     def call(self, inputs, **kwargs):
         # actual weights in matrix, result of Hadamard product of eigenvalues vector and eigenvector matrix
+        # w_ij = - \lambda_i * phi_ij
         self.w = tf.multiply(self.diag, self.base)
         self.w = tf.negative(self.w)
 
-        x = tf.matmul(inputs, self.w)  # information transfer
+        # information transfer
+        x = tf.matmul(inputs, self.w)
 
         if self.use_bias:
             x += self.bias
