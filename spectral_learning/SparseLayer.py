@@ -1,3 +1,8 @@
+"""
+Sparse Layer
+@author: Lorenzo Buffoni
+"""
+
 import tensorflow as tf
 import numpy as np
 
