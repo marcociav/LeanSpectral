@@ -1,5 +1,5 @@
 # lean_spectral
-Lean Spectral Layer using a TensorFlow backend
+Lean Spectral Layer using a TensorFlow backend.
 
 Based on work by: Duccio Fanelli, Lorenzo Buffoni and Lorenzo Giambagli
 
